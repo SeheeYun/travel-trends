@@ -1,13 +1,11 @@
 import axios from 'axios';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-
 import chartData from '../src/data/data.json';
 import MapChart from '../src/components/MapChart';
 
@@ -18,17 +16,17 @@ const useStyles = makeStyles(theme => ({
     height: 300,
     maxWidth: '100%',
     textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   section_1_title: {
-    margin: '0 auto',
     [theme.breakpoints.down('sm')]: {
       width: 300,
-      paddingTop: 90,
       fontSize: theme.typography.h5.fontSize,
     },
     [theme.breakpoints.up('md')]: {
       width: 550,
-      paddingTop: 50,
       fontSize: theme.typography.h3.fontSize,
     },
   },
