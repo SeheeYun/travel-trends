@@ -15,7 +15,7 @@ const Header = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="static" className={classes.root}>
+    <AppBar position="sticky" className={classes.root}>
       <Toolbar>
         <Typography variant="h6">Travel Trends</Typography>
       </Toolbar>

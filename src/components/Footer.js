@@ -25,7 +25,7 @@ const Footer = () => {
     <footer className={classes.root}>
       <Toolbar className={classes.toolbar}>
         <Typography className={classes.title}>
-          ⓒ 2016. 이름 All Rights Reserved.
+          ⓒ 2021. 윤세희 All Rights Reserved.
         </Typography>
       </Toolbar>
     </footer>

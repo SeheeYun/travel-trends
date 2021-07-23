@@ -3,11 +3,11 @@ import Header from './Header';
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <>
       <Header />
-      <div>{children}</div>
+      {children}
       <Footer />
-    </div>
+    </>
   );
 };
 export default Layout;
