@@ -1,0 +1,14 @@
+.paper {
+  position: relative;
+}
+
+.paper::before {
+  border-top: 0px solid transparent;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 20px solid #fe6b8b98;
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50px;
+}

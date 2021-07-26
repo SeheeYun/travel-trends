@@ -16,8 +16,8 @@ function ElevationScroll({ children }) {
       background: trigger
         ? 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
         : 'transparent',
-      boxShadow: trigger ? '0 3px 5px 3px rgba(255, 105, 135, .5)' : 'none',
       transition: '0.5s',
+      boxShadow: trigger ? '0 3px 5px 2px rgba(255, 105, 135, .5)' : 'none',
     },
   });
 }

@@ -34,9 +34,16 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3),
   },
+  grid_1: {
+    marginBottom: theme.spacing(5),
+  },
   paper: {
     padding: theme.spacing(2),
     height: 340,
+  },
+  paper_1: {
+    background: 'linear-gradient(45deg, #FE6B8B98 30%, #FF8E5398 90%)',
+    boxShadow: '0 3px 5px 3px rgba(255, 105, 135, .3)',
   },
 }));
 
@@ -58,7 +65,7 @@ export default function Home() {
         </Typography>
       </Container>
       <Container className={classes.section_2}>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} className={classes.grid_1}>
           <Grid item xs={12} sm={6}>
             <Paper elevation={3} className={classes.paper}>
               <Typography>가장 많이 찾은 지역</Typography>
@@ -70,8 +77,10 @@ export default function Home() {
               <Typography>지역별 추천 여행지</Typography>
             </Paper>
           </Grid>
-          <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paper}>
+        </Grid>
+        <Grid container spacing={3}>
+          <Grid item xs={12} className={styles.paper}>
+            <Paper className={`${classes.paper} ${classes.paper_1}`}>
               <Typography>서울의 더 많은 추천 여행지</Typography>
             </Paper>
           </Grid>
