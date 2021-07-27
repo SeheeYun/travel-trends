@@ -6,8 +6,9 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import chartData from '../src/data/data.json';
-import MapChart from '../src/components/MapChart';
+import geochartData from '../src/data/skorea-provinces.json';
+import barchartData from '../src/data/barchart-data.json';
+import Geochart from '../src/components/Geochart';
 
 const useStyles = makeStyles(theme => ({
   section_1: {
@@ -69,7 +70,7 @@ export default function Home() {
           <Grid item xs={12} sm={6}>
             <Paper elevation={3} className={classes.paper}>
               <Typography>가장 많이 찾은 지역</Typography>
-              <MapChart data={chartData} />
+              <Geochart data={geochartData} />
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>

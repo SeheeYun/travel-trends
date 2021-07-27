@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    background: theme.palette.grey[100],
-    boxShadow: 'none',
     borderTop: `1px solid ${theme.palette.grey[400]}`,
     color: theme.palette.grey[700],
     display: 'flex',
