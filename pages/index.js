@@ -1,14 +1,23 @@
 import axios from 'axios';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import { feature } from 'topojson';
+import geoChartData from '../src/data/skorea-provinces.json';
+import barchartData from '../src/data/barchart-data.json';
+import GeoChart from '../src/components/GeoChart';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import geochartData from '../src/data/skorea-provinces.json';
-import barchartData from '../src/data/barchart-data.json';
-import Geochart from '../src/components/Geochart';
+import { useEffect, useState } from 'react';
+
+const KOREA_PROVINCE_OBJECT = 'skorea_provinces_2018_geo';
+const geoJson = feature(
+  geoChartData,
+  geoChartData.objects[KOREA_PROVINCE_OBJECT]
+);
 
 const useStyles = makeStyles(theme => ({
   section_1: {
@@ -40,16 +49,24 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     padding: theme.spacing(2),
-    height: 340,
+    height: 400,
   },
   paper_1: {
     background: 'linear-gradient(45deg, #FE6B8B98 30%, #FF8E5398 90%)',
     boxShadow: '0 3px 5px 3px rgba(255, 105, 135, .3)',
   },
+  bold: {
+    fontWeight: theme.typography.fontWeightBold,
+  },
 }));
 
 export default function Home() {
   const classes = useStyles();
+  const [province, setProvince] = useState(geoJson.features[0].properties.name);
+
+  const onClick = name => {
+    setProvince(name);
+  };
 
   return (
     <>
@@ -66,29 +83,32 @@ export default function Home() {
         </Typography>
       </Container>
       <Container className={classes.section_2}>
-        <Grid container spacing={2} className={classes.grid_1}>
+        <Grid container spacing={0} className={classes.grid_1}>
           <Grid item xs={12} sm={6}>
+            <Typography>가장 많이 찾은 지역</Typography>
             <Paper elevation={3} className={classes.paper}>
-              <Typography>가장 많이 찾은 지역</Typography>
-              <Geochart data={geochartData} />
+              <GeoChart data={geoJson} onClick={onClick} />
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Paper elevation={3} className={classes.paper}>
-              <Typography>지역별 추천 여행지</Typography>
-            </Paper>
+            <Typography>지역별 추천 여행지</Typography>
+            <Paper elevation={3} className={classes.paper}></Paper>
           </Grid>
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={12} className={styles.paper}>
             <Paper className={`${classes.paper} ${classes.paper_1}`}>
-              <Typography>서울의 더 많은 추천 여행지</Typography>
+              <Typography>
+                <Typography component="span" className={classes.bold}>
+                  {province}
+                </Typography>
+                의 더 많은 추천 여행지
+              </Typography>
             </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paper}>
-              <Typography>지역별 관광 트렌드</Typography>
-            </Paper>
+            <Typography>지역별 관광 트렌드</Typography>
+            <Paper elevation={3} className={classes.paper}></Paper>
           </Grid>
         </Grid>
       </Container>
