@@ -43,6 +43,7 @@ function GeoChart({ data, onClick }) {
     const pathGenerator = geoPath().projection(projection);
 
     const svg = select(svgRef.current);
+    const wrapper = select(wrapperRef.current);
 
     const handleOnClick = e => {
       const i = svg.selectAll('.province').nodes().indexOf(e.target);
@@ -55,6 +56,24 @@ function GeoChart({ data, onClick }) {
       });
     };
 
+    const tooltipScale = scaleLinear()
+      .domain([minProp, maxProp])
+      .range([0, 100]);
+    const handleMouseEnter = (e, d) => {
+      wrapper
+        .selectAll('.tooltip') //
+        .data([d.properties])
+        .join('div')
+        .attr('class', 'tooltip')
+        .html(
+          `${d.properties.name}<br />${Math.ceil(
+            tooltipScale(d.properties.consumption)
+          )}`
+        )
+        .style('opacity', 1)
+        .style('transform', `translate(${e.offsetX}px,${e.offsetY}px)`);
+    };
+
     svg
       .selectAll('.province')
       .data(data.features)
@@ -63,6 +82,8 @@ function GeoChart({ data, onClick }) {
         onClick(feature.properties.name);
         handleOnClick(e);
       })
+      .on('mousemove', handleMouseEnter)
+      .on('mouseleave', () => wrapper.select('.tooltip').style('opacity', 0))
       .attr('class', 'province')
       .transition()
       .attr('fill', feature => colorScale(feature.properties.consumption))
