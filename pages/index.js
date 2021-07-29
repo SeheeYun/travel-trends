@@ -121,7 +121,7 @@ function Home({ tourApi, seoulName, seoulCode }) {
                 </Typography>
                 의 더 많은 추천 여행지
               </Typography>
-              <Items items={items.slice(3)} />
+              <Items items={items.slice(3)} display="row" />
             </Paper>
           </Grid>
           <Grid item xs={12}>
