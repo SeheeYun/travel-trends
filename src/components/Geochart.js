@@ -79,7 +79,7 @@ function GeoChart({ data, onClick }) {
       .data(data.features)
       .join('path')
       .on('click', (e, feature) => {
-        onClick(feature.properties.name);
+        onClick(feature.properties.name, feature.properties.code);
         handleOnClick(e);
       })
       .on('mousemove', handleMouseEnter)

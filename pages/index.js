@@ -1,16 +1,17 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import { feature } from 'topojson';
-import geoChartData from '../src/data/skorea-provinces.json';
-import barchartData from '../src/data/barchart-data.json';
-import GeoChart from '../src/components/GeoChart';
-import { useEffect, useState } from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
+import { feature } from 'topojson';
+import geoChartData from '../src/data/skorea-provinces.json';
+import barchartData from '../src/data/barchart-data.json';
+import { useEffect, useState } from 'react';
+import GeoChart from '../src/components/GeoChart';
+import Items from '../src/components/Items';
 
 const KOREA_PROVINCE_OBJECT = 'skorea_provinces_2018_geo';
 const geoJson = feature(
@@ -62,18 +63,20 @@ const useStyles = makeStyles(theme => ({
 function Home({ tourApi, seoulName, seoulCode }) {
   const classes = useStyles();
   const [province, setProvince] = useState(seoulName);
-
-  const onClick = name => {
-    setProvince(name);
-  };
+  const [items, setItems] = useState([]);
 
   const getItems = async areaCode => {
     try {
       const data = await tourApi.getItemList(areaCode);
-      console.log(data);
+      setItems(data);
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const onClick = (name, areaCode) => {
+    setProvince(name);
+    getItems(areaCode);
   };
 
   useEffect(() => {
@@ -104,7 +107,9 @@ function Home({ tourApi, seoulName, seoulCode }) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography>지역별 추천 여행지</Typography>
-            <Paper elevation={3} className={classes.paper}></Paper>
+            <Paper elevation={3} className={classes.paper}>
+              <Items items={items.slice(0, 3)} />
+            </Paper>
           </Grid>
         </Grid>
         <Grid container spacing={3}>
@@ -116,6 +121,7 @@ function Home({ tourApi, seoulName, seoulCode }) {
                 </Typography>
                 의 더 많은 추천 여행지
               </Typography>
+              <Items items={items.slice(3)} />
             </Paper>
           </Grid>
           <Grid item xs={12}>
