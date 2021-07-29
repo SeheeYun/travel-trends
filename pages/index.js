@@ -1,17 +1,16 @@
-import axios from 'axios';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import { feature } from 'topojson';
 import geoChartData from '../src/data/skorea-provinces.json';
 import barchartData from '../src/data/barchart-data.json';
 import GeoChart from '../src/components/GeoChart';
+import { useEffect, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import { useEffect, useState } from 'react';
 
 const KOREA_PROVINCE_OBJECT = 'skorea_provinces_2018_geo';
 const geoJson = feature(
@@ -60,13 +59,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Home() {
+function Home({ tourApi, seoulName, seoulCode }) {
   const classes = useStyles();
-  const [province, setProvince] = useState(geoJson.features[0].properties.name);
+  const [province, setProvince] = useState(seoulName);
 
   const onClick = name => {
     setProvince(name);
   };
+
+  const getItems = async areaCode => {
+    try {
+      const data = await tourApi.getItemList(areaCode);
+      console.log(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    getItems(seoulCode);
+  }, []);
 
   return (
     <>
@@ -115,3 +127,10 @@ export default function Home() {
     </>
   );
 }
+
+Home.defaultProps = {
+  seoulName: geoJson.features[0].properties.name,
+  seoulCode: geoJson.features[0].properties.code,
+};
+
+export default Home;
