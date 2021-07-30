@@ -12,6 +12,7 @@ import barchartData from '../src/data/barchart-data.json';
 import { useEffect, useState } from 'react';
 import GeoChart from '../src/components/GeoChart';
 import Items from '../src/components/Items';
+import tourApi from '../src/service/tour-api';
 
 const KOREA_PROVINCE_OBJECT = 'skorea_provinces_2018_geo';
 const geoJson = feature(
@@ -60,7 +61,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Home({ tourApi, seoulName, seoulCode }) {
+function Home({ seoulName, seoulCode }) {
   const classes = useStyles();
   const [province, setProvince] = useState(seoulName);
   const [items, setItems] = useState([]);
