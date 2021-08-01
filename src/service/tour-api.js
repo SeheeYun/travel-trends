@@ -11,7 +11,7 @@ class TourApi {
       const data = await axios.get(`${this.url}areaBasedList?`, {
         params: {
           serviceKey: this.key,
-          numOfRows: 7,
+          numOfRows: 9,
           MobileOS: 'ETC',
           MobileApp: 'AppTest',
           arrange: 'P',

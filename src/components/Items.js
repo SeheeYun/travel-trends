@@ -1,15 +1,22 @@
 import React from 'react';
 import Item from './Item';
-import styles from '../../styles/Items.module.css';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
-const Items = ({ items, display }) => {
-  const style = display === 'row' ? styles.row : styles.column;
+const GRIDS = [5, 3, 4, 3, 6, 3, 4, 3, 5];
 
+const Items = ({ items }) => {
   return (
-    <div className={style}>
+    <Grid container spacing={1}>
       {items.length > 0 &&
-        items.map(item => <Item key={item.contentid} item={item} />)}
-    </div>
+        items.map(item => (
+          <Item
+            key={item.contentid}
+            item={item}
+            grid={GRIDS[items.indexOf(item)]}
+          />
+        ))}
+    </Grid>
   );
 };
 

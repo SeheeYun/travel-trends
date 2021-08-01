@@ -8,16 +8,13 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 function ElevationScroll({ children }) {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 0,
+    threshold: 100,
   });
 
   return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
     style: {
-      background: trigger
-        ? 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
-        : 'transparent',
-      transition: '0.5s',
-      boxShadow: trigger ? '0 3px 5px 2px rgba(255, 105, 135, .5)' : 'none',
+      background: trigger ? '#111' : 'transparent',
     },
   });
 }

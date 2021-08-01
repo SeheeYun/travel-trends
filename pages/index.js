@@ -21,41 +21,66 @@ const geoJson = feature(
 );
 
 const useStyles = makeStyles(theme => ({
-  section_1: {
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  container_1: {
+    backgroundImage:
+      "linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/images/tip250t009837.jpeg')",
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
     color: 'white',
-    height: 300,
-    maxWidth: '100%',
-    textAlign: 'center',
+    height: 600,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    // textAlign: 'center',
   },
-  section_1_title: {
+  container_1_title: {
+    paddingLeft: 20,
+    width: 550,
+    fontSize: theme.typography.h3.fontSize,
     [theme.breakpoints.down('sm')]: {
+      width: 440,
+      fontSize: theme.typography.h4.fontSize,
+    },
+    [theme.breakpoints.down('xs')]: {
       width: 300,
       fontSize: theme.typography.h5.fontSize,
     },
-    [theme.breakpoints.up('md')]: {
-      width: 550,
-      fontSize: theme.typography.h3.fontSize,
+  },
+
+  container_2: {
+    margin: '-80px 0px 0px',
+    '& h2': {
+      marginBottom: 10,
+    },
+  },
+
+  section: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow:
+      '0 16px 24px 2px rgb(0 0 0 / 14%), 0 6px 30px 5px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%)',
+    borderRadius: '4px',
+    marginBottom: 60,
+    padding: '30px 20px',
+  },
+  section_1: {
+    '&>div': {
+      height: 400,
     },
   },
   section_2: {
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
+    '&::before': {
+      content: '""',
+      marginTop: -60,
+      marginLeft: 80,
+      borderTop: '0px solid transparent',
+      borderLeft: '30px solid transparent',
+      borderRight: '30px solid transparent',
+      borderBottom: '30px solid #fff',
+      position: 'absolute',
+    },
   },
-  grid_1: {
-    marginBottom: theme.spacing(5),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    height: 400,
-  },
-  paper_1: {
-    background: 'linear-gradient(45deg, #FE6B8B98 30%, #FF8E5398 90%)',
-    boxShadow: '0 3px 5px 3px rgba(255, 105, 135, .3)',
-  },
+
   bold: {
     fontWeight: theme.typography.fontWeightBold,
   },
@@ -93,43 +118,32 @@ function Home({ seoulName, seoulCode }) {
           content="국내 여행 트렌드에 대한 데이터 시각화 사이트입니다."
         />
       </Head>
-      <Container className={classes.section_1}>
-        <Typography component="h1" className={classes.section_1_title}>
+
+      <Container maxWidth={false} className={classes.container_1}>
+        <Typography component="h1" className={classes.container_1_title}>
           훌훌 털고 떠날 그 날을 위해, 국내 여행 트렌드 살펴보기
         </Typography>
       </Container>
-      <Container className={classes.section_2}>
-        <Grid container spacing={0} className={classes.grid_1}>
-          <Grid item xs={12} sm={6}>
-            <Typography>가장 많이 찾은 지역</Typography>
-            <Paper elevation={3} className={classes.paper}>
+
+      <Container className={classes.container_2}>
+        <section className={`${classes.section} ${classes.section_1}`}>
+          <Typography component="h2">가장 많이 찾은 지역</Typography>
+          <Grid container spacing={0}>
+            <Grid item xs={12} sm={6}>
               <GeoChart data={geoJson} onClick={onClick} />
-            </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6}></Grid>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography>지역별 추천 여행지</Typography>
-            <Paper elevation={3} className={classes.paper}>
-              <Items items={items.slice(0, 3)} />
-            </Paper>
-          </Grid>
-        </Grid>
-        <Grid container spacing={3}>
-          <Grid item xs={12} className={styles.paper}>
-            <Paper className={`${classes.paper} ${classes.paper_1}`}>
-              <Typography>
-                <Typography component="span" className={classes.bold}>
-                  {province}
-                </Typography>
-                의 더 많은 추천 여행지
-              </Typography>
-              <Items items={items.slice(3)} display="row" />
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>지역별 관광 트렌드</Typography>
-            <Paper elevation={3} className={classes.paper}></Paper>
-          </Grid>
-        </Grid>
+        </section>
+        <section className={`${classes.section} ${classes.section_2}`}>
+          <Typography component="h2" className={classes.title}>
+            <Typography component="span" className={classes.bold}>
+              {province}
+            </Typography>
+            의 추천 여행지
+          </Typography>
+          <Items items={items} />
+        </section>
       </Container>
     </>
   );
