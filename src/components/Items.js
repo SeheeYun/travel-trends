@@ -8,7 +8,8 @@ const GRIDS = [5, 3, 4, 3, 6, 3, 4, 3, 5];
 const Items = ({ items }) => {
   return (
     <Grid container spacing={1}>
-      {items.length > 0 &&
+      {Array.isArray(items) &&
+        items.length > 0 &&
         items.map(item => (
           <Item
             key={item.contentid}
