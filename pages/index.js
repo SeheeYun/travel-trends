@@ -1,11 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import { feature } from 'topojson';
 import geoChartData from '../src/data/skorea-provinces.json';
 import barchartData from '../src/data/barchart-data.json';
@@ -13,48 +11,26 @@ import { useEffect, useState } from 'react';
 import GeoChart from '../src/components/GeoChart';
 import Items from '../src/components/Items';
 import tourApi from '../src/service/tour-api';
+import HeadBanner from '../src/components/HeadBanner';
 
 const KOREA_PROVINCE_OBJECT = 'skorea_provinces_2018_geo';
 const geoJson = feature(
   geoChartData,
   geoChartData.objects[KOREA_PROVINCE_OBJECT]
 );
+const JEJU_NAME = geoJson.features[16].properties.name;
+const JEJU_CODE = geoJson.features[16].properties.code;
+const HEAD_IMAGE = '/images/tip250t009837.jpeg';
+const HEAD_TITLE = '훌훌 털고 떠날 그 날을 위해, 국내 여행 트렌드 살펴보기';
+const META_DESC = '국내 여행 트렌드에 대한 데이터 시각화 사이트입니다.';
 
 const useStyles = makeStyles(theme => ({
-  container_1: {
-    backgroundImage:
-      "linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/images/tip250t009837.jpeg')",
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    color: 'white',
-    height: 600,
-    display: 'flex',
-    alignItems: 'center',
-    // justifyContent: 'center',
-    // textAlign: 'center',
-  },
-  container_1_title: {
-    paddingLeft: 20,
-    width: 550,
-    fontSize: theme.typography.h3.fontSize,
-    [theme.breakpoints.down('sm')]: {
-      width: 440,
-      fontSize: theme.typography.h4.fontSize,
-    },
-    [theme.breakpoints.down('xs')]: {
-      width: 300,
-      fontSize: theme.typography.h5.fontSize,
-    },
-  },
-
-  container_2: {
+  container: {
     margin: '-80px 0px 0px',
     '& h2': {
       marginBottom: 10,
     },
   },
-
   section: {
     backgroundColor: theme.palette.background.paper,
     boxShadow:
@@ -69,15 +45,16 @@ const useStyles = makeStyles(theme => ({
     },
   },
   section_2: {
+    position: 'relative',
     '&::before': {
       content: '""',
-      marginTop: -60,
-      marginLeft: 80,
       borderTop: '0px solid transparent',
-      borderLeft: '30px solid transparent',
-      borderRight: '30px solid transparent',
-      borderBottom: '30px solid #fff',
+      borderLeft: '25px solid transparent',
+      borderRight: '25px solid transparent',
+      borderBottom: '25px solid #fff',
       position: 'absolute',
+      left: '15%',
+      top: -25,
     },
   },
 
@@ -86,9 +63,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Home({ seoulName, seoulCode }) {
+function Home({}) {
   const classes = useStyles();
-  const [province, setProvince] = useState(seoulName);
+  const [province, setProvince] = useState(JEJU_NAME);
   const [items, setItems] = useState([]);
 
   const getItems = async areaCode => {
@@ -106,26 +83,17 @@ function Home({ seoulName, seoulCode }) {
   };
 
   useEffect(() => {
-    getItems(seoulCode);
+    getItems(JEJU_CODE);
   }, []);
 
   return (
     <>
       <Head>
         <title>국내 여행 트렌드</title>
-        <meta
-          name="description"
-          content="국내 여행 트렌드에 대한 데이터 시각화 사이트입니다."
-        />
+        <meta name="description" content={META_DESC} />
       </Head>
-
-      <Container maxWidth={false} className={classes.container_1}>
-        <Typography component="h1" className={classes.container_1_title}>
-          훌훌 털고 떠날 그 날을 위해, 국내 여행 트렌드 살펴보기
-        </Typography>
-      </Container>
-
-      <Container className={classes.container_2}>
+      <HeadBanner image={HEAD_IMAGE} title={HEAD_TITLE} />
+      <Container className={classes.container}>
         <section className={`${classes.section} ${classes.section_1}`}>
           <Typography component="h2">가장 많이 찾은 지역</Typography>
           <Grid container spacing={0}>
@@ -148,10 +116,5 @@ function Home({ seoulName, seoulCode }) {
     </>
   );
 }
-
-Home.defaultProps = {
-  seoulName: geoJson.features[0].properties.name,
-  seoulCode: geoJson.features[0].properties.code,
-};
 
 export default Home;
