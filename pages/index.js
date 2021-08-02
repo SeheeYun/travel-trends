@@ -102,6 +102,9 @@ function Home({}) {
             </Grid>
             <Grid item xs={12} sm={6}></Grid>
           </Grid>
+          <Typography component="p" variant="caption" align="right">
+            데이터 출처: 한국관광공사
+          </Typography>
         </section>
         <section className={`${classes.section} ${classes.section_2}`}>
           <Typography component="h2" className={classes.title}>
