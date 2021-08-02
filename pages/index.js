@@ -26,7 +26,7 @@ const META_DESC = '국내 여행 트렌드에 대한 데이터 시각화 사이�
 
 const useStyles = makeStyles(theme => ({
   container: {
-    margin: '-80px 0px 0px',
+    marginTop: -80,
     '& h2': {
       marginBottom: 10,
     },
@@ -89,7 +89,7 @@ function Home({}) {
   return (
     <>
       <Head>
-        <title>국내 여행 트렌드</title>
+        <title>Travel Trends</title>
         <meta name="description" content={META_DESC} />
       </Head>
       <HeadBanner image={HEAD_IMAGE} title={HEAD_TITLE} />

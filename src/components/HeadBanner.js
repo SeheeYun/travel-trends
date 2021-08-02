@@ -41,10 +41,12 @@ const HeadBanner = ({ image, title }) => {
         backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${image})`,
       }}
     >
-      {title && (
+      {title ? (
         <Typography component="h1" className={classes.container_title}>
           {title}
         </Typography>
+      ) : (
+        <div></div>
       )}
     </Container>
   );
