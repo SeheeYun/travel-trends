@@ -1,6 +1,7 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useEffect } from 'react';
 import Layout from '../src/components/layout';
+import Store from '../src/store/store';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
@@ -12,10 +13,12 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <Layout>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </Layout>
+    <Store>
+      <Layout>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </Layout>
+    </Store>
   );
 }
 

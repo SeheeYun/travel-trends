@@ -2,16 +2,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-
 import Head from 'next/head';
 import { feature } from 'topojson';
 import geoChartData from '../src/data/skorea-provinces.json';
 import barchartData from '../src/data/barchart-data.json';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import GeoChart from '../src/components/GeoChart';
 import Items from '../src/components/Items';
 import tourApi from '../src/service/tour-api';
 import HeadBanner from '../src/components/HeadBanner';
+import { useStore } from '../src/store/store';
 
 const KOREA_PROVINCE_OBJECT = 'skorea_provinces_2018_geo';
 const geoJson = feature(
@@ -65,25 +65,27 @@ const useStyles = makeStyles(theme => ({
 
 function Home({}) {
   const classes = useStyles();
-  const [province, setProvince] = useState(JEJU_NAME);
-  const [items, setItems] = useState([]);
+
+  const { province, items, onSetItems, onSetProvince } = useStore();
 
   const getItems = async areaCode => {
     try {
       const data = await tourApi.getItemList(areaCode);
-      setItems(data);
+      onSetItems(data);
     } catch (e) {
       console.error(e);
     }
   };
 
   const onClick = (name, areaCode) => {
-    setProvince(name);
+    onSetProvince(name);
     getItems(areaCode);
   };
 
   useEffect(() => {
-    getItems(JEJU_CODE);
+    if (!(items.length === 0)) return;
+
+    onClick(JEJU_NAME, JEJU_CODE);
   }, []);
 
   return (

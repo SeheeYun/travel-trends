@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import tourApi from '../../src/service/tour-api';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
@@ -23,6 +22,9 @@ const useStyles = makeStyles(theme => ({
     borderRadius: '4px',
     marginBottom: 60,
     padding: '30px 20px',
+    '& th': {
+      minWidth: 90,
+    },
     '& td': {
       color: theme.palette.primary.main,
     },

@@ -16,11 +16,10 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   container_title: {
-    paddingLeft: 20,
     width: 570,
     fontSize: theme.typography.h3.fontSize,
     [theme.breakpoints.down('sm')]: {
-      width: 440,
+      width: 420,
       fontSize: theme.typography.h4.fontSize,
     },
     [theme.breakpoints.down('xs')]: {
@@ -41,13 +40,15 @@ const HeadBanner = ({ image, title }) => {
         backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${image})`,
       }}
     >
-      {title ? (
-        <Typography component="h1" className={classes.container_title}>
-          {title}
-        </Typography>
-      ) : (
-        <div></div>
-      )}
+      <Container>
+        {title ? (
+          <Typography component="h1" className={classes.container_title}>
+            {title}
+          </Typography>
+        ) : (
+          <div></div>
+        )}
+      </Container>
     </Container>
   );
 };
