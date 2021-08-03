@@ -3,21 +3,15 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Head from 'next/head';
-import { feature } from 'topojson';
-import geoChartData from '../src/data/skorea-provinces.json';
-import barchartData from '../src/data/barchart-data.json';
 import { useEffect } from 'react';
 import GeoChart from '../src/components/GeoChart';
 import Items from '../src/components/Items';
 import tourApi from '../src/service/tour-api';
 import HeadBanner from '../src/components/HeadBanner';
 import { useStore } from '../src/store/store';
+import geoJson from '../src/data/getGeoJson';
+import barchartJson from '../src/data/barchart-data.json';
 
-const KOREA_PROVINCE_OBJECT = 'skorea_provinces_2018_geo';
-const geoJson = feature(
-  geoChartData,
-  geoChartData.objects[KOREA_PROVINCE_OBJECT]
-);
 const JEJU_NAME = geoJson.features[16].properties.name;
 const JEJU_CODE = geoJson.features[16].properties.code;
 const HEAD_IMAGE = '/images/tip250t009837.jpeg';
