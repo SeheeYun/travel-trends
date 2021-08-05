@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { makeStyles } from '@material-ui/core/styles';
+import Image from './Image';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -12,19 +13,20 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('xs')]: {
       height: 120,
     },
-    overflow: 'hidden',
     position: 'relative',
     color: 'white',
     '&:hover': {
       '& div': { opacity: 0 },
     },
     '& button': {
+      overflow: 'hidden',
       width: '100%',
       height: '100%',
     },
     '& a': {
       width: '100%',
       height: '100%',
+      position: 'relative',
     },
     '& p': {
       position: 'absolute',
@@ -33,7 +35,7 @@ const useStyles = makeStyles(theme => ({
       [theme.breakpoints.down('xs')]: {
         bottom: 0,
       },
-      zIndex: 1,
+      zIndex: 2,
       fontWeight: theme.typography.fontWeightBold,
       fontSize: theme.typography.h6.fontSize,
       [theme.breakpoints.down('sm')]: {
@@ -49,10 +51,14 @@ const useStyles = makeStyles(theme => ({
       position: 'absolute',
       width: '100%',
       height: '100%',
+      zIndex: 1,
       opacity: 0.2,
       transition: theme.transitions.create('opacity'),
     },
     '& img': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
       height: '100%',
       width: '100%',
       objectFit: 'cover',
@@ -70,7 +76,11 @@ const Item = ({ item, grid }) => {
           <a>
             <p>{item.title}</p>
             <div></div>
-            <img src={item.firstimage} alt={item.title} />
+            <Image
+              thumbSrc={item.firstimage2}
+              fullSrc={item.firstimage}
+              alt={item.title}
+            />
           </a>
         </Link>
       </ButtonBase>
