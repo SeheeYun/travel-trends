@@ -11,6 +11,7 @@ import HeadBanner from '../src/components/HeadBanner';
 import { useStore } from '../src/store/store';
 import geoJson from '../src/data/getGeoJson';
 import barchartJson from '../src/data/barchart-data.json';
+import GeoRank from '../src/components/GeoRank';
 
 const JEJU_NAME = geoJson.features[16].properties.name;
 const JEJU_CODE = geoJson.features[16].properties.code;
@@ -36,6 +37,9 @@ const useStyles = makeStyles(theme => ({
   section_1: {
     '&>div': {
       height: 400,
+      '&>div': {
+        height: '100%',
+      },
     },
   },
   section_2: {
@@ -59,8 +63,13 @@ const useStyles = makeStyles(theme => ({
 
 function Home({}) {
   const classes = useStyles();
-
   const { province, items, onSetItems, onSetProvince } = useStore();
+  const rankItems = geoJson.features
+    .map(feature => feature.properties)
+    .sort((a, b) => {
+      return b.consumption - a.consumption;
+    })
+    .slice(0, 5);
 
   const getItems = async areaCode => {
     try {
@@ -92,11 +101,13 @@ function Home({}) {
       <Container className={classes.container}>
         <section className={`${classes.section} ${classes.section_1}`}>
           <Typography component="h2">가장 많이 찾은 지역</Typography>
-          <Grid container spacing={0}>
+          <Grid container spacing={0} className={classes.grid}>
             <Grid item xs={12} sm={6}>
               <GeoChart data={geoJson} onClick={onClick} />
             </Grid>
-            <Grid item xs={12} sm={6}></Grid>
+            <Grid item xs={12} sm={6}>
+              <GeoRank items={rankItems} />
+            </Grid>
           </Grid>
           <Typography component="p" variant="caption" align="right">
             데이터 출처: 한국관광공사
