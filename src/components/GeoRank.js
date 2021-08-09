@@ -1,89 +1,146 @@
 import Table from '@material-ui/core/Table';
-import TableContainer from '@material-ui/core/TableContainer';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
-import { useEffect, useRef } from 'react';
-import { max, scaleLinear, select } from 'd3';
+import { useState } from 'react';
+import { max, scaleLinear } from 'd3';
 
 const MEAN_COLOR = '#1e88e5';
 const SELECT_COLOR = '#e0e0e0';
-const TD_WIDTH = 250;
-const TD_HEIGHT = 60;
+const TD_WIDTH = 200;
+const TD_HEIGHT = 30;
+const ROW_HEIGHT = 68;
 
-const useStyles = makeStyles(theme => ({
-  table: {
-    maxWidth: theme.breakpoints.values.sm,
-    margin: '0 auto',
-    marginBottom: 16,
+const useStyles1 = makeStyles(theme => ({
+  root: {
+    flexShrink: 0,
+    marginLeft: theme.spacing(2.5),
+    '& span': {
+      fontSize: '14px',
+    },
+  },
+}));
+
+function TablePaginationActions(props) {
+  const classes = useStyles1();
+  const { count, page, rowsPerPage, onPageChange } = props;
+
+  const handleBackButtonClick = event => {
+    onPageChange(event, page - 1);
+  };
+
+  const handleNextButtonClick = event => {
+    onPageChange(event, page + 1);
+  };
+
+  return (
+    <div className={classes.root}>
+      <IconButton
+        onClick={handleBackButtonClick}
+        disabled={page === 0}
+        aria-label="previous page"
+      >
+        〈 이전 페이지
+      </IconButton>
+      <IconButton
+        onClick={handleNextButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="next page"
+      >
+        다음 페이지 〉
+      </IconButton>
+    </div>
+  );
+}
+
+const useStyles2 = makeStyles(theme => ({
+  root: {
     '& th': {
       minWidth: 120,
     },
     '& td': {
-      height: TD_HEIGHT,
-      width: TD_WIDTH,
-      position: 'relative',
-    },
-    '& svg': {
-      width: '100%',
-      height: '100%',
-      backgroundColor: SELECT_COLOR,
-    },
-    '& p': {
-      position: 'absolute',
-      left: -16,
-      top: 6,
+      '&>div': {
+        position: 'relative',
+        height: TD_HEIGHT,
+        width: TD_WIDTH,
+        backgroundColor: SELECT_COLOR,
+        display: 'inline-block',
+        '& p': {
+          position: 'absolute',
+          left: -32,
+          top: -8,
+        },
+      },
     },
   },
 }));
 
 const GeoRank = ({ items }) => {
-  const classes = useStyles();
-  const wrapperRef = useRef();
+  const classes = useStyles2();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, items.length - page * rowsPerPage);
 
-  useEffect(() => {
-    const maxProp = max(items, item => item.consumption);
+  const maxProp = max(items, item => item.consumption);
+  const xScale = scaleLinear() //
+    .domain([0, maxProp])
+    .range([0, TD_WIDTH]);
+  const textScale = scaleLinear() //
+    .domain([0, maxProp])
+    .range([0, 100]);
 
-    const xScale = scaleLinear() //
-      .domain([0, maxProp])
-      .range([0, TD_WIDTH]);
-    const textScale = scaleLinear().domain([0, maxProp]).range([0, 100]);
-
-    const wrapper = select(wrapperRef.current);
-    wrapper
-      .selectAll('svg')
-      .data(items)
-      .join('svg')
-      .append('rect')
-      .attr('height', '100%')
-      .attr('width', item => xScale(item.consumption))
-      .attr('fill', MEAN_COLOR);
-
-    wrapper
-      .selectAll('p')
-      .data(items)
-      .join('svg')
-      .append('text')
-      .text(item => Math.ceil(textScale(item.consumption)))
-      .attr('fill', 'black');
-  }, []);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
   return (
-    <Table className={classes.table}>
-      <TableBody ref={wrapperRef}>
-        {items.map(item => (
+    <Table>
+      <TableBody className={classes.root}>
+        {(rowsPerPage > 0
+          ? items.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          : items
+        ).map(item => (
           <TableRow key={item.name}>
             <TableCell component="th" scope="row">
               {item.name}
             </TableCell>
             <TableCell align="right">
-              <p></p>
-              <svg></svg>
+              <div>
+                <p>{Math.ceil(textScale(item.consumption))}</p>
+                <div
+                  style={{
+                    width: xScale(item.consumption),
+                    height: '100%',
+                    backgroundColor: MEAN_COLOR,
+                  }}
+                />
+              </div>
             </TableCell>
           </TableRow>
         ))}
+        {emptyRows > 0 && (
+          <TableRow style={{ height: emptyRows * ROW_HEIGHT }}>
+            <TableCell />
+          </TableRow>
+        )}
       </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TablePagination
+            rowsPerPageOptions={[]}
+            count={items.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            ActionsComponent={TablePaginationActions}
+          />
+        </TableRow>
+      </TableFooter>
     </Table>
   );
 };

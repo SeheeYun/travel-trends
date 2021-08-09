@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import GeoChart from '../src/components/GeoChart';
@@ -37,6 +38,9 @@ const useStyles = makeStyles(theme => ({
   section_1: {
     '&>div': {
       height: 400,
+      [theme.breakpoints.down('sm')]: {
+        height: 300,
+      },
       '&>div': {
         height: '100%',
       },
@@ -68,8 +72,7 @@ function Home({}) {
     .map(feature => feature.properties)
     .sort((a, b) => {
       return b.consumption - a.consumption;
-    })
-    .slice(0, 5);
+    });
 
   const getItems = async areaCode => {
     try {
@@ -102,11 +105,13 @@ function Home({}) {
         <section className={`${classes.section} ${classes.section_1}`}>
           <Typography component="h2">가장 많이 찾은 지역</Typography>
           <Grid container spacing={0} className={classes.grid}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12} md={6}>
               <GeoChart data={geoJson} onClick={onClick} />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <GeoRank items={rankItems} />
+            <Grid item xs={12} sm={12} md={6}>
+              <Hidden smDown>
+                <GeoRank items={rankItems} />
+              </Hidden>
             </Grid>
           </Grid>
           <Typography component="p" variant="caption" align="right">
