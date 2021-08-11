@@ -5,14 +5,15 @@ import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import Head from 'next/head';
 import { useEffect } from 'react';
-import GeoChart from '../src/components/GeoChart';
 import Items from '../src/components/Items';
 import tourApi from '../src/service/tour-api';
 import HeadBanner from '../src/components/HeadBanner';
 import { useStore } from '../src/store/store';
 import geoJson from '../src/data/getGeoJson';
-import barchartJson from '../src/data/barchart-data.json';
+import GeoChart from '../src/components/GeoChart';
 import GeoRank from '../src/components/GeoRank';
+import barChartJson from '../src/data/barchart-data.json';
+import BarChart from '../src/components/BarChart';
 
 const JEJU_NAME = geoJson.features[16].properties.name;
 const JEJU_CODE = geoJson.features[16].properties.code;
@@ -59,7 +60,14 @@ const useStyles = makeStyles(theme => ({
       top: -25,
     },
   },
-
+  section_3: {
+    '&>div': {
+      height: 400,
+      // [theme.breakpoints.down('sm')]: {
+      //   height: 300,
+      // },
+    },
+  },
   bold: {
     fontWeight: theme.typography.fontWeightBold,
   },
@@ -90,7 +98,6 @@ function Home({}) {
 
   useEffect(() => {
     if (!(items.length === 0)) return;
-
     onClick(JEJU_NAME, JEJU_CODE);
   }, []);
 
@@ -126,6 +133,13 @@ function Home({}) {
             의 추천 여행지
           </Typography>
           <Items items={items} />
+        </section>
+        <section className={`${classes.section} ${classes.section_3}`}>
+          <Typography component="h2">가장 많이 찾은 지역</Typography>
+          <BarChart data={barChartJson} />
+          <Typography component="p" variant="caption" align="right">
+            데이터 출처: 한국관광공사
+          </Typography>
         </section>
       </Container>
     </>
