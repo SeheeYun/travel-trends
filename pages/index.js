@@ -14,6 +14,7 @@ import GeoChart from '../src/components/GeoChart';
 import GeoRank from '../src/components/GeoRank';
 import barChartJson from '../src/data/barchart-data.json';
 import BarChart from '../src/components/BarChart';
+import BarChartCheckbox from '../src/components/BarChartCheckbox';
 
 const JEJU_NAME = geoJson.features[16].properties.name;
 const JEJU_CODE = geoJson.features[16].properties.code;
@@ -60,14 +61,6 @@ const useStyles = makeStyles(theme => ({
       top: -25,
     },
   },
-  section_3: {
-    '&>div': {
-      height: 400,
-      // [theme.breakpoints.down('sm')]: {
-      //   height: 300,
-      // },
-    },
-  },
   bold: {
     fontWeight: theme.typography.fontWeightBold,
   },
@@ -75,7 +68,15 @@ const useStyles = makeStyles(theme => ({
 
 function Home({}) {
   const classes = useStyles();
-  const { province, items, onSetItems, onSetProvince } = useStore();
+  const {
+    province,
+    items,
+    keys,
+    colors,
+    onSetItems,
+    onSetProvince,
+    onChangeKeys,
+  } = useStore();
   const rankItems = geoJson.features
     .map(feature => feature.properties)
     .sort((a, b) => {
@@ -115,7 +116,7 @@ function Home({}) {
             <Grid item xs={12} sm={12} md={6}>
               <GeoChart data={geoJson} onClick={onClick} />
             </Grid>
-            <Grid item xs={12} sm={12} md={6}>
+            <Grid item md={6}>
               <Hidden smDown>
                 <GeoRank items={rankItems} />
               </Hidden>
@@ -135,8 +136,19 @@ function Home({}) {
           <Items items={items} />
         </section>
         <section className={`${classes.section} ${classes.section_3}`}>
-          <Typography component="h2">가장 많이 찾은 지역</Typography>
-          <BarChart data={barChartJson} />
+          <Typography component="h2">지역별 관광 트렌드</Typography>
+          <Grid container spacing={0} className={classes.grid}>
+            <Grid item xs={12}>
+              <BarChartCheckbox
+                keys={keys}
+                colors={colors}
+                onChangeKeys={onChangeKeys}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <BarChart data={barChartJson} keys={keys} colors={colors} />
+            </Grid>
+          </Grid>
           <Typography component="p" variant="caption" align="right">
             데이터 출처: 한국관광공사
           </Typography>

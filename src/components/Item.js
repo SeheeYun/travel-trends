@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
       height: 260,
     },
     [theme.breakpoints.down('xs')]: {
-      height: 120,
+      height: 100,
     },
     position: 'relative',
     color: 'white',
