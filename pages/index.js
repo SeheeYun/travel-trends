@@ -15,6 +15,8 @@ import GeoRank from '../src/components/GeoRank';
 import barChartJson from '../src/data/barchart-data.json';
 import BarChart from '../src/components/BarChart';
 import BarChartCheckbox from '../src/components/BarChartCheckbox';
+import BubbleChart from '../src/components/BubbleChart';
+import webscraping from '../src/service/web_scraping';
 
 const JEJU_NAME = geoJson.features[16].properties.name;
 const JEJU_CODE = geoJson.features[16].properties.code;
@@ -66,7 +68,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Home({}) {
+function Home({ res }) {
   const classes = useStyles();
   const {
     province,
@@ -153,9 +155,27 @@ function Home({}) {
             데이터 출처: 한국관광공사
           </Typography>
         </section>
+        <section className={`${classes.section} ${classes.section_3}`}>
+          <Typography component="h2">국내여행 쇼핑 트렌드</Typography>
+          <BubbleChart data={res} />
+          <Typography component="p" variant="caption" align="right">
+            데이터 출처: 네이버 데이터랩
+          </Typography>
+        </section>
       </Container>
     </>
   );
 }
 
 export default Home;
+
+export async function getStaticProps() {
+  const res = await webscraping.ScrapeData();
+  webScraping.closeBrowser();
+
+  return {
+    props: {
+      res,
+    },
+  };
+}

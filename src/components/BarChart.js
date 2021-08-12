@@ -1,7 +1,6 @@
 import { axisBottom, max, scaleBand, scaleLinear, select, stack } from 'd3';
 import React, { useEffect, useRef } from 'react';
 import useResizeObserver from '../hooks/useResizeObserver';
-import styles from '../../styles/BarChart.module.css';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
