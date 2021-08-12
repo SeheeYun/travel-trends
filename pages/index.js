@@ -16,7 +16,7 @@ import barChartJson from '../src/data/barchart-data.json';
 import BarChart from '../src/components/BarChart';
 import BarChartCheckbox from '../src/components/BarChartCheckbox';
 import BubbleChart from '../src/components/BubbleChart';
-import webscraping from '../src/service/web_scraping';
+import webScraping from '../src/service/web_scraping';
 
 const JEJU_NAME = geoJson.features[16].properties.name;
 const JEJU_CODE = geoJson.features[16].properties.code;
@@ -170,7 +170,7 @@ function Home({ res }) {
 export default Home;
 
 export async function getStaticProps() {
-  const res = await webscraping.ScrapeData();
+  const res = await webScraping.ScrapeData();
   webScraping.closeBrowser();
 
   return {
