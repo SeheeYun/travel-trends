@@ -15,7 +15,7 @@ import GeoRank from '../src/components/GeoRank';
 import barChartJson from '../src/data/barchart-data.json';
 import BarChart from '../src/components/BarChart';
 import BarChartCheckbox from '../src/components/BarChartCheckbox';
-import BubbleChart from '../src/components/BubbleChart';
+import BubbleChart from '../src/components/KeywordChart';
 import webScraping from '../src/service/web_scraping';
 
 const JEJU_NAME = geoJson.features[16].properties.name;
@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Home({ res }) {
+function Home({ data }) {
   const classes = useStyles();
   const {
     province,
@@ -139,25 +139,19 @@ function Home({ res }) {
         </section>
         <section className={`${classes.section} ${classes.section_3}`}>
           <Typography component="h2">지역별 관광 트렌드</Typography>
-          <Grid container spacing={0} className={classes.grid}>
-            <Grid item xs={12}>
-              <BarChartCheckbox
-                keys={keys}
-                colors={colors}
-                onChangeKeys={onChangeKeys}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <BarChart data={barChartJson} keys={keys} colors={colors} />
-            </Grid>
-          </Grid>
+          <BarChartCheckbox
+            keys={keys}
+            colors={colors}
+            onChangeKeys={onChangeKeys}
+          />
+          <BarChart data={barChartJson} keys={keys} colors={colors} />
           <Typography component="p" variant="caption" align="right">
             데이터 출처: 한국관광공사
           </Typography>
         </section>
         <section className={`${classes.section} ${classes.section_3}`}>
-          <Typography component="h2">국내여행 쇼핑 트렌드</Typography>
-          <BubbleChart data={res} />
+          <Typography component="h2">국내여행 쇼핑 인기검색어</Typography>
+          <BubbleChart KeywordData={data} />
           <Typography component="p" variant="caption" align="right">
             데이터 출처: 네이버 데이터랩
           </Typography>
@@ -170,12 +164,12 @@ function Home({ res }) {
 export default Home;
 
 export async function getStaticProps() {
-  const res = await webScraping.ScrapeData();
+  const data = await webScraping.ScrapeData();
   webScraping.closeBrowser();
 
   return {
     props: {
-      res,
+      data,
     },
   };
 }
