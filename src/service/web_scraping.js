@@ -5,7 +5,7 @@ class WebScraping {
     this.browser = null;
   }
 
-  async ScrapeData() {
+  async scrapeData() {
     this.browser = await puppeteer.launch({ headless: true });
     const page = await this.browser.newPage();
     await page.goto(process.env.NEXT_PUBLIC_SCRAPE_URL);
@@ -35,7 +35,7 @@ class WebScraping {
   }
 
   closeBrowser() {
-    this.browser.close();
+    this.browser && this.browser.close();
   }
 }
 

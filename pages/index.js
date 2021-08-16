@@ -151,7 +151,7 @@ function Home({ data }) {
         </section>
         <section className={`${classes.section} ${classes.section_3}`}>
           <Typography component="h2">국내여행 쇼핑 인기검색어</Typography>
-          <BubbleChart KeywordData={data} />
+          {data && <BubbleChart KeywordData={data} />}
           <Typography component="p" variant="caption" align="right">
             데이터 출처: 네이버 데이터랩
           </Typography>
@@ -164,12 +164,20 @@ function Home({ data }) {
 export default Home;
 
 export async function getStaticProps() {
-  const data = await webScraping.ScrapeData();
-  webScraping.closeBrowser();
-
-  return {
-    props: {
-      data,
-    },
-  };
+  try {
+    const data = await webScraping.scrapeData();
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        data: null,
+      },
+    };
+  } finally {
+    webScraping.closeBrowser();
+  }
 }

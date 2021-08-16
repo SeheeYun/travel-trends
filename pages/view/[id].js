@@ -51,7 +51,7 @@ const View = ({
     <>
       <Head>
         <title>{title} - Travel Trends</title>
-        <meta name="description" content={'asd'} />
+        <meta name="description" content={overview} />
       </Head>
       <HeadBanner image={firstimage} />
       <Container className={classes.container}>
@@ -94,17 +94,16 @@ const View = ({
 };
 
 export async function getServerSideProps(context) {
-  const data = await tourApi.getItem(context.params.id);
-
-  if (!data) {
+  try {
+    const data = await tourApi.getItem(context.params.id);
+    return {
+      props: { data },
+    };
+  } catch (e) {
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: { data: data },
-  };
 }
 
 export default View;
