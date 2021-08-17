@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import HeadBanner from '../../src/components/HeadBanner';
+import HeadBanner from '../../src/components/headBanner';
 import parse from 'html-react-parser';
 
 const useStyles = makeStyles(theme => ({

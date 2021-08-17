@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { makeStyles } from '@material-ui/core/styles';
-import Image from './Image';
+import Image from './image';
 
 const useStyles = makeStyles(theme => ({
   root: {

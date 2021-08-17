@@ -1,5 +1,5 @@
 import React from 'react';
-import Item from './Item';
+import Item from './item';
 import Grid from '@material-ui/core/Grid';
 
 const GRIDS = [5, 3, 4, 3, 6, 3, 4, 3, 5];

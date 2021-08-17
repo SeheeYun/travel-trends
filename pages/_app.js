@@ -1,6 +1,6 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useEffect } from 'react';
-import Layout from '../src/components/Layout';
+import Layout from '../src/components/layout';
 import Store from '../src/store/store';
 import '../styles/globals.css';
 
