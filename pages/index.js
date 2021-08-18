@@ -6,7 +6,6 @@ import Hidden from '@material-ui/core/Hidden';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import Items from '../src/components/items';
-import tourApi from '../src/service/tour-api';
 import HeadBanner from '../src/components/headBanner';
 import { useStore } from '../src/store/store';
 import geoJson from '../src/data/getGeoJson';
@@ -15,8 +14,10 @@ import GeoRank from '../src/components/geoRank';
 import barChartJson from '../src/data/barchart-data.json';
 import BarChart from '../src/components/barChart';
 import BarChartCheckbox from '../src/components/barChartCheckbox';
-import BubbleChart from '../src/components/keywordChart';
+import KeywordChart from '../src/components/keywordChart';
 import webScraping from '../src/service/web_scraping';
+import axios from 'axios';
+import tourApi from '../src/service/tour-api';
 
 const JEJU_NAME = geoJson.features[16].properties.name;
 const JEJU_CODE = geoJson.features[16].properties.code;
@@ -87,6 +88,7 @@ function Home({ data }) {
 
   const getItems = async areaCode => {
     try {
+      // const res = await axios.get(`/api/${areaCode}`);
       const data = await tourApi.getItemList(areaCode);
       onSetItems(data);
     } catch (e) {
@@ -151,7 +153,7 @@ function Home({ data }) {
         </section>
         <section className={`${classes.section} ${classes.section_3}`}>
           <Typography component="h2">국내여행 쇼핑 인기검색어</Typography>
-          {data && <BubbleChart KeywordData={data} />}
+          {data && <KeywordChart KeywordData={data} />}
           <Typography component="p" variant="caption" align="right">
             데이터 출처: 네이버 데이터랩
           </Typography>
