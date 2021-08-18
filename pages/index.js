@@ -17,7 +17,6 @@ import BarChartCheckbox from '../src/components/barChartCheckbox';
 import KeywordChart from '../src/components/keywordChart';
 import webScraping from '../src/service/web_scraping';
 import axios from 'axios';
-import tourApi from '../src/service/tour-api';
 
 const JEJU_NAME = geoJson.features[16].properties.name;
 const JEJU_CODE = geoJson.features[16].properties.code;
@@ -88,9 +87,8 @@ function Home({ data }) {
 
   const getItems = async areaCode => {
     try {
-      // const res = await axios.get(`/api/${areaCode}`);
-      const data = await tourApi.getItemList(areaCode);
-      onSetItems(data);
+      const res = await axios.get(`/api/${areaCode}`);
+      onSetItems(res.data);
     } catch (e) {
       console.error(e);
     }
