@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import tourApi from '../../src/service/tour-api';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -10,6 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import HeadBanner from '../../src/components/headBanner';
 import parse from 'html-react-parser';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -94,12 +94,33 @@ const View = ({
 };
 
 export async function getServerSideProps(context) {
+  const key = process.env.NEXT_PUBLIC_API_KEY;
+  const url =
+    'http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?';
+
   try {
-    const data = await tourApi.getItem(context.params.id);
-    return {
-      props: { data },
-    };
+    const data = await axios.get(url, {
+      params: {
+        serviceKey: key,
+        MobileOS: 'ETC',
+        MobileApp: 'AppTest',
+        defaultYN: 'Y',
+        firstImageYN: 'Y',
+        addrinfoYN: 'Y',
+        mapinfoYN: 'Y',
+        overviewYN: 'Y',
+        contentId: context.params.id,
+      },
+    });
+    if (data.data.response.header.resultCode === '0000') {
+      return { props: { data: data.data.response.body.items.item } };
+    } else {
+      throw new Error(
+        `공공데이터포털 에러 코드: ${data.data.response.header.resultCode}`
+      );
+    }
   } catch (e) {
+    console.error(e);
     return {
       notFound: true,
     };
