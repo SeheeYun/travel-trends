@@ -68,8 +68,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Home({ data, ms }) {
-  console.log(ms);
+function Home({ data }) {
   const classes = useStyles();
   const {
     province,
@@ -170,15 +169,13 @@ export async function getStaticProps() {
     return {
       props: {
         data,
-        ms: 'ok',
       },
     };
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return {
       props: {
         data: null,
-        ms: e.message,
       },
     };
   } finally {
