@@ -69,6 +69,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Home({ data }) {
+  console.log(data);
   const classes = useStyles();
   const {
     province,
