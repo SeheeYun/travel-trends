@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import axios from 'axios';
 
 const Context = createContext();
 
@@ -37,12 +38,18 @@ const Store = props => {
   const [keys, setKeys] = useState(KEYS);
   const colors = COLORS;
 
-  const onSetItems = data => {
-    setItems(data);
+  const getItems = async areaCode => {
+    try {
+      const res = await axios.get(`/api/${areaCode}`);
+      setItems(res.data);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  const onSetProvince = name => {
+  const onClick = (name, areaCode) => {
     setProvince(name);
+    getItems(areaCode);
   };
 
   const onChangeKeys = e => {
@@ -56,8 +63,7 @@ const Store = props => {
     items,
     keys,
     colors,
-    onSetItems,
-    onSetProvince,
+    onClick,
     onChangeKeys,
   };
 

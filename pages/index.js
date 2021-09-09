@@ -16,7 +16,6 @@ import BarChart from '../src/components/barChart';
 import BarChartCheckbox from '../src/components/barChartCheckbox';
 import KeywordChart from '../src/components/keywordChart';
 import webScraping from '../src/service/web_scraping';
-import axios from 'axios';
 
 const JEJU_NAME = geoJson.features[16].properties.name;
 const JEJU_CODE = geoJson.features[16].properties.code;
@@ -70,34 +69,12 @@ const useStyles = makeStyles(theme => ({
 
 function Home({ data }) {
   const classes = useStyles();
-  const {
-    province,
-    items,
-    keys,
-    colors,
-    onSetItems,
-    onSetProvince,
-    onChangeKeys,
-  } = useStore();
+  const { province, items, keys, colors, onClick, onChangeKeys } = useStore();
   const rankItems = geoJson.features
     .map(feature => feature.properties)
     .sort((a, b) => {
       return b.consumption - a.consumption;
     });
-
-  const getItems = async areaCode => {
-    try {
-      const res = await axios.get(`/api/${areaCode}`);
-      onSetItems(res.data);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const onClick = (name, areaCode) => {
-    onSetProvince(name);
-    getItems(areaCode);
-  };
 
   useEffect(() => {
     if (!(items.length === 0)) return;
