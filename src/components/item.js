@@ -62,7 +62,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Item = ({ item: { contentid, title, firstimage }, grid }) => {
+const Item = ({
+  item: { contentid, title, firstimage, firstimage2 },
+  grid,
+}) => {
   const classes = useStyles();
 
   return (
@@ -77,6 +80,8 @@ const Item = ({ item: { contentid, title, firstimage }, grid }) => {
               alt={title}
               src={firstimage}
               layout="fill"
+              placeholder="blur"
+              blurDataURL={firstimage2}
             />
           </a>
         </Link>
