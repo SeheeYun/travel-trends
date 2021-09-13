@@ -1,9 +1,26 @@
 import Footer from './footer';
 import Header from './header';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { makeStyles } from '@material-ui/core/styles';
 
-const Layout = ({ children }) => {
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    position: 'fixed',
+    zIndex: 1101,
+  },
+}));
+
+const Layout = ({ children, isLoading }) => {
+  const classes = useStyles();
+
   return (
     <div id="root">
+      {isLoading && (
+        <div className={classes.root}>
+          <LinearProgress />
+        </div>
+      )}
       <Header />
       {children}
       <Footer />
