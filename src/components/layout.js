@@ -2,6 +2,7 @@ import Footer from './footer';
 import Header from './header';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
+import { memo } from 'react';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Layout = ({ children, isLoading }) => {
+const Layout = memo(({ children, isLoading }) => {
   const classes = useStyles();
 
   return (
@@ -26,5 +27,5 @@ const Layout = ({ children, isLoading }) => {
       <Footer />
     </div>
   );
-};
+});
 export default Layout;

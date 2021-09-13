@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,15 +23,15 @@ ElevationScroll.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-const Header = props => {
-  return (
-    <ElevationScroll {...props}>
-      <AppBar position="fixed">
-        <Toolbar>
+const Header = memo(props => (
+  <ElevationScroll {...props}>
+    <AppBar position="fixed">
+      <Toolbar>
+        <a href="https://travel-trends.vercel.app/">
           <Typography variant="h6">Travel Trends</Typography>
-        </Toolbar>
-      </AppBar>
-    </ElevationScroll>
-  );
-};
+        </a>
+      </Toolbar>
+    </AppBar>
+  </ElevationScroll>
+));
 export default Header;

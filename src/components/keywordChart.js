@@ -1,5 +1,5 @@
 import { hierarchy, scaleLinear, select, treemap } from 'd3';
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 const MIN_COLOR = '#e3f2fd';
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function KeywordChart({ KeywordData }) {
+const KeywordChart = memo(({ KeywordData }) => {
   const classes = useStyles();
 
   const wrapperRef = useRef();
@@ -77,6 +77,6 @@ function KeywordChart({ KeywordData }) {
   }, [data]);
 
   return <div ref={wrapperRef} className={classes.wrapper} />;
-}
+});
 
 export default KeywordChart;

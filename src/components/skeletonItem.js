@@ -1,5 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import { memo } from 'react';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SkeletonItem = ({ grid }) => {
+const SkeletonItem = memo(({ grid }) => {
   const classes = useStyles();
 
   return (
@@ -26,6 +27,6 @@ const SkeletonItem = ({ grid }) => {
       <div></div>
     </Grid>
   );
-};
+});
 
 export default SkeletonItem;

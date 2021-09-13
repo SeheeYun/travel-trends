@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { makeStyles } from '@material-ui/core/styles';
 import Image from 'next/image';
+import { memo } from 'react';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -62,32 +63,31 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Item = ({
-  item: { contentid, title, firstimage, firstimage2 },
-  grid,
-}) => {
-  const classes = useStyles();
+const Item = memo(
+  ({ item: { contentid, title, firstimage, firstimage2 }, grid }) => {
+    const classes = useStyles();
 
-  return (
-    <Grid item xs={12} sm={grid} className={classes.root}>
-      <ButtonBase focusRipple>
-        <Link href={`/view/${contentid}`}>
-          <a>
-            <p>{title}</p>
-            <div className={classes.div}></div>
-            <Image
-              className={classes.image}
-              alt={title}
-              src={firstimage}
-              layout="fill"
-              placeholder="blur"
-              blurDataURL={firstimage2}
-            />
-          </a>
-        </Link>
-      </ButtonBase>
-    </Grid>
-  );
-};
+    return (
+      <Grid item xs={12} sm={grid} className={classes.root}>
+        <ButtonBase focusRipple>
+          <Link href={`/view/${contentid}`}>
+            <a>
+              <p>{title}</p>
+              <div className={classes.div}></div>
+              <Image
+                className={classes.image}
+                alt={title}
+                src={firstimage}
+                layout="fill"
+                placeholder="blur"
+                blurDataURL={firstimage2}
+              />
+            </a>
+          </Link>
+        </ButtonBase>
+      </Grid>
+    );
+  }
+);
 
 export default Item;

@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { max, scaleLinear } from 'd3';
 
 const MEAN_COLOR = '#1e88e5';
@@ -79,8 +79,13 @@ const useStyles2 = makeStyles(theme => ({
   },
 }));
 
-const GeoRank = ({ items }) => {
+const GeoRank = memo(({ data }) => {
   const classes = useStyles2();
+  const items = data.features
+    .map(feature => feature.properties)
+    .sort((a, b) => {
+      return b.consumption - a.consumption;
+    });
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const emptyRows =
@@ -143,6 +148,6 @@ const GeoRank = ({ items }) => {
       </TableFooter>
     </Table>
   );
-};
+});
 
 export default GeoRank;
