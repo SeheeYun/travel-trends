@@ -69,7 +69,8 @@ const useStyles = makeStyles(theme => ({
 
 function Home({ data }) {
   const classes = useStyles();
-  const { province, items, keys, colors, onClick, onChangeKeys } = useStore();
+  const { province, items, keys, colors, isLoading, onClick, onChangeKeys } =
+    useStore();
   const rankItems = geoJson.features
     .map(feature => feature.properties)
     .sort((a, b) => {
@@ -112,7 +113,7 @@ function Home({ data }) {
             </Typography>
             의 추천 여행지
           </Typography>
-          <Items items={items} />
+          <Items items={items} isLoading={isLoading} />
         </section>
         <section className={`${classes.section} ${classes.section_3}`}>
           <Typography component="h2">지역별 관광 트렌드</Typography>

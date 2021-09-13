@@ -1,19 +1,17 @@
 import React from 'react';
 import Item from './item';
+import SkeletonItem from './skeletonItem';
 import Grid from '@material-ui/core/Grid';
 
 const GRIDS = [5, 3, 4, 3, 6, 3, 4, 3, 5];
 
-const Items = ({ items }) => (
+const Items = ({ items, isLoading }) => (
   <Grid container spacing={1}>
-    {!(items.length === 0) &&
-      items.map(item => (
-        <Item
-          key={item.contentid}
-          item={item}
-          grid={GRIDS[items.indexOf(item)]}
-        />
-      ))}
+    {!isLoading
+      ? items.map((item, index) => (
+          <Item key={item.contentid} item={item} grid={GRIDS[index]} />
+        ))
+      : GRIDS.map((grid, index) => <SkeletonItem key={index} grid={grid} />)}
   </Grid>
 );
 

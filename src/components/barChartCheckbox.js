@@ -4,7 +4,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const BarChartCheckbox = ({ keys, colors, onChangeKeys }) => (
   <FormGroup row>
-    {Object.keys(keys).map(key => (
+    {Object.keys(keys).map((key, index) => (
       <FormControlLabel
         key={key}
         control={
@@ -13,7 +13,7 @@ const BarChartCheckbox = ({ keys, colors, onChangeKeys }) => (
             onChange={onChangeKeys}
             name={key}
             style={{
-              color: colors[Object.keys(keys).indexOf(key)],
+              color: colors[index],
             }}
           />
         }

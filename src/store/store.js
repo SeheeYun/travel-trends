@@ -36,15 +36,18 @@ const Store = props => {
   const [province, setProvince] = useState(null);
   const [items, setItems] = useState([]);
   const [keys, setKeys] = useState(KEYS);
+  const [isLoading, setIsLoading] = useState(true);
   const colors = COLORS;
 
   const getItems = async areaCode => {
+    setIsLoading(true);
     try {
       const res = await axios.get(`/api/${areaCode}`);
       setItems(res.data);
     } catch (e) {
       console.error(e);
     }
+    setIsLoading(false);
   };
 
   const onClick = (name, areaCode) => {
@@ -63,6 +66,7 @@ const Store = props => {
     items,
     keys,
     colors,
+    isLoading,
     onClick,
     onChangeKeys,
   };
