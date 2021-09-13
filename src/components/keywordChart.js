@@ -79,4 +79,6 @@ const KeywordChart = memo(({ KeywordData }) => {
   return <div ref={wrapperRef} className={classes.wrapper} />;
 });
 
+KeywordChart.displayName = 'KeywordChart';
+
 export default KeywordChart;

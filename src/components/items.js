@@ -14,4 +14,7 @@ const Items = memo(({ items, isLoading }) => (
       : GRIDS.map((grid, index) => <SkeletonItem key={index} grid={grid} />)}
   </Grid>
 ));
+
+Items.displayName = 'Items';
+
 export default Items;

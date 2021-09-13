@@ -90,4 +90,6 @@ const Item = memo(
   }
 );
 
+Item.displayName = 'Item';
+
 export default Item;

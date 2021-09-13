@@ -83,4 +83,7 @@ const BarChart = memo(({ data, keys, colors }) => {
     </div>
   );
 });
+
+BarChart.displayName = 'BarChart';
+
 export default BarChart;

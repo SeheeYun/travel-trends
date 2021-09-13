@@ -54,4 +54,6 @@ const HeadBanner = memo(({ image, title }) => {
   );
 });
 
+HeadBanner.displayName = 'HeadBanner';
+
 export default HeadBanner;

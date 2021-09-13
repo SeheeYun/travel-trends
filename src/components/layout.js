@@ -28,4 +28,7 @@ const Layout = memo(({ children, isLoading }) => {
     </div>
   );
 });
+
+Layout.displayName = 'Layout';
+
 export default Layout;

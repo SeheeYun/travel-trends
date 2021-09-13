@@ -30,4 +30,7 @@ const Footer = memo(() => {
     </footer>
   );
 });
+
+Footer.displayName = 'Footer';
+
 export default Footer;

@@ -1,7 +1,7 @@
 import { geoMercator, geoPath, max, mean, min, scaleLinear, select } from 'd3';
 import React, { memo, useEffect, useRef } from 'react';
 import useResizeObserver from '../hooks/useResizeObserver';
-import styles from '../../styles/geoChart.module.css';
+import styles from '../../styles/GeoChart.module.css';
 
 const MIN_COLOR = '#bbdefb';
 const MEAN_COLOR = '#1e88e5';
@@ -96,4 +96,7 @@ const GeoChart = memo(({ data, onClick }) => {
     </div>
   );
 });
+
+GeoChart.displayName = 'GeoChart';
+
 export default GeoChart;

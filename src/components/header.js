@@ -34,4 +34,7 @@ const Header = memo(props => (
     </AppBar>
   </ElevationScroll>
 ));
+
+Header.displayName = 'Header';
+
 export default Header;

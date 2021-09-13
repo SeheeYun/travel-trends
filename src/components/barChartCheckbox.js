@@ -24,4 +24,6 @@ const BarChartCheckbox = memo(({ keys, colors, onChangeKeys }) => (
   </FormGroup>
 ));
 
+BarChartCheckbox.displayName = 'BarChartCheckbox';
+
 export default BarChartCheckbox;

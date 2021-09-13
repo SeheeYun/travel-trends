@@ -29,4 +29,6 @@ const SkeletonItem = memo(({ grid }) => {
   );
 });
 
+SkeletonItem.displayName = 'SkeletonItem';
+
 export default SkeletonItem;

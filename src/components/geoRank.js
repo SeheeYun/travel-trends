@@ -150,4 +150,6 @@ const GeoRank = memo(({ data }) => {
   );
 });
 
+GeoRank.displayName = 'GeoRank';
+
 export default GeoRank;
