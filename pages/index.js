@@ -71,11 +71,6 @@ function Home({ data }) {
   const classes = useStyles();
   const { province, items, keys, colors, isLoading, onClick, onChangeKeys } =
     useStore();
-  const rankItems = geoJson.features
-    .map(feature => feature.properties)
-    .sort((a, b) => {
-      return b.consumption - a.consumption;
-    });
 
   useEffect(() => {
     if (!(items.length === 0)) return;
@@ -98,7 +93,7 @@ function Home({ data }) {
             </Grid>
             <Grid item md={6}>
               <Hidden smDown>
-                <GeoRank items={rankItems} />
+                <GeoRank data={geoJson} />
               </Hidden>
             </Grid>
           </Grid>

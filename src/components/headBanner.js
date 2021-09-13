@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import { memo } from 'react';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const HeadBanner = ({ image, title }) => {
+const HeadBanner = memo(({ image, title }) => {
   const classes = useStyles();
 
   return (
@@ -51,6 +52,8 @@ const HeadBanner = ({ image, title }) => {
       </Container>
     </Container>
   );
-};
+});
+
+HeadBanner.displayName = 'HeadBanner';
 
 export default HeadBanner;

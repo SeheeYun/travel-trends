@@ -1,6 +1,7 @@
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { memo } from 'react';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   title: { fontSize: '0.9rem' },
 }));
 
-const Footer = () => {
+const Footer = memo(() => {
   const classes = useStyles();
 
   return (
@@ -28,5 +29,8 @@ const Footer = () => {
       </Toolbar>
     </footer>
   );
-};
+});
+
+Footer.displayName = 'Footer';
+
 export default Footer;

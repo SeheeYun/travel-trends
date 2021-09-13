@@ -1,5 +1,5 @@
 import { axisBottom, max, scaleBand, scaleLinear, select, stack } from 'd3';
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import useResizeObserver from '../hooks/useResizeObserver';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function BarChart({ data, keys, colors }) {
+const BarChart = memo(({ data, keys, colors }) => {
   const classes = useStyles();
 
   const wrapperRef = useRef();
@@ -82,6 +82,8 @@ function BarChart({ data, keys, colors }) {
       </svg>
     </div>
   );
-}
+});
+
+BarChart.displayName = 'BarChart';
 
 export default BarChart;

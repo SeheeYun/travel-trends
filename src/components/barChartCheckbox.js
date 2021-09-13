@@ -1,8 +1,9 @@
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { memo } from 'react';
 
-const BarChartCheckbox = ({ keys, colors, onChangeKeys }) => (
+const BarChartCheckbox = memo(({ keys, colors, onChangeKeys }) => (
   <FormGroup row>
     {Object.keys(keys).map((key, index) => (
       <FormControlLabel
@@ -21,6 +22,8 @@ const BarChartCheckbox = ({ keys, colors, onChangeKeys }) => (
       />
     ))}
   </FormGroup>
-);
+));
+
+BarChartCheckbox.displayName = 'BarChartCheckbox';
 
 export default BarChartCheckbox;

@@ -1,5 +1,5 @@
 import { geoMercator, geoPath, max, mean, min, scaleLinear, select } from 'd3';
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import useResizeObserver from '../hooks/useResizeObserver';
 import styles from '../../styles/GeoChart.module.css';
 
@@ -8,7 +8,7 @@ const MEAN_COLOR = '#1e88e5';
 const MAX_COLOR = '#0d47a1';
 const SELECT_COLOR = '#e0e0e0';
 
-function GeoChart({ data, onClick }) {
+const GeoChart = memo(({ data, onClick }) => {
   const wrapperRef = useRef();
   const svgRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
@@ -95,6 +95,8 @@ function GeoChart({ data, onClick }) {
       <svg ref={svgRef} className={styles.svg}></svg>
     </div>
   );
-}
+});
+
+GeoChart.displayName = 'GeoChart';
 
 export default GeoChart;
