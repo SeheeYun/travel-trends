@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import axios from 'axios';
 
 const Context = createContext();
 
@@ -35,14 +36,23 @@ const Store = props => {
   const [province, setProvince] = useState(null);
   const [items, setItems] = useState([]);
   const [keys, setKeys] = useState(KEYS);
+  const [isLoading, setIsLoading] = useState(true);
   const colors = COLORS;
 
-  const onSetItems = data => {
-    setItems(data);
+  const getItems = async areaCode => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get(`/api/${areaCode}`);
+      setItems(res.data);
+    } catch (e) {
+      console.error(e);
+    }
+    setIsLoading(false);
   };
 
-  const onSetProvince = name => {
+  const onClick = (name, areaCode) => {
     setProvince(name);
+    getItems(areaCode);
   };
 
   const onChangeKeys = e => {
@@ -56,8 +66,8 @@ const Store = props => {
     items,
     keys,
     colors,
-    onSetItems,
-    onSetProvince,
+    isLoading,
+    onClick,
     onChangeKeys,
   };
 
