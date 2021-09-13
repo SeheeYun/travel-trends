@@ -73,7 +73,7 @@ function KeywordChart({ KeywordData }) {
       .data(d => d)
       .join('p')
       .html(d => d.data.name)
-      .style('color', d => (d.value > 6 ? 'white' : 'black'));
+      .style('color', d => (d.value > 8 ? 'white' : 'black'));
   }, [data]);
 
   return <div ref={wrapperRef} className={classes.wrapper} />;

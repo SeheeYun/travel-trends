@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { makeStyles } from '@material-ui/core/styles';
-import Image from './image';
+import Image from 'next/image';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,9 +15,6 @@ const useStyles = makeStyles(theme => ({
     },
     position: 'relative',
     color: 'white',
-    '&:hover': {
-      '& div': { opacity: 0 },
-    },
     '& button': {
       overflow: 'hidden',
       width: '100%',
@@ -46,40 +43,40 @@ const useStyles = makeStyles(theme => ({
       overflow: 'hidden',
       textOverflow: 'ellipsis',
     },
-    '& div': {
-      backgroundColor: 'black',
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      zIndex: 1,
-      opacity: 0.2,
-      transition: theme.transitions.create('opacity'),
+  },
+  div: {
+    backgroundColor: 'black',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    zIndex: 1,
+    opacity: 0.2,
+    transition: theme.transitions.create('opacity'),
+    '&:hover': {
+      opacity: 0,
     },
-    '& img': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      height: '100%',
-      width: '100%',
-      objectFit: 'cover',
-    },
+  },
+  image: {
+    objectFit: 'cover',
+    backgroundColor: theme.palette.grey[300],
   },
 }));
 
-const Item = ({ item, grid }) => {
+const Item = ({ item: { contentid, title, firstimage }, grid }) => {
   const classes = useStyles();
 
   return (
     <Grid item xs={12} sm={grid} className={classes.root}>
       <ButtonBase focusRipple>
-        <Link href={`/view/${item.contentid}`}>
+        <Link href={`/view/${contentid}`}>
           <a>
-            <p>{item.title}</p>
-            <div></div>
+            <p>{title}</p>
+            <div className={classes.div}></div>
             <Image
-              thumbSrc={item.firstimage2}
-              fullSrc={item.firstimage}
-              alt={item.title}
+              className={classes.image}
+              alt={title}
+              src={firstimage}
+              layout="fill"
             />
           </a>
         </Link>
