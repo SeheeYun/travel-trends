@@ -38,7 +38,10 @@ const HeadBanner = memo(({ image, title }) => {
       maxWidth={false}
       className={classes.container}
       style={{
-        backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${image})`,
+        backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${image.replace(
+          /http/i,
+          'https'
+        )})`,
       }}
     >
       <Container>
