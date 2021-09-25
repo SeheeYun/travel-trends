@@ -43,7 +43,17 @@ const Store = props => {
     setIsLoading(true);
     try {
       const res = await axios.get(`/api/${areaCode}`);
-      setItems(res.data);
+      setItems(
+        res.data.map(data => {
+          const { contentid, title, firstimage, firstimage2 } = data;
+          return {
+            contentid: contentid,
+            title: title,
+            firstimage: firstimage.replace(/http/i, 'https'),
+            firstimage2: firstimage2.replace(/http/i, 'https'),
+          };
+        })
+      );
     } catch (e) {
       console.error(e);
     }
