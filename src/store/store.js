@@ -13,7 +13,6 @@ const Store = props => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getItems = async areaCode => {
-    setIsLoading(true);
     try {
       const res = await axios.get(`/api/${areaCode}`);
       setItems(
@@ -27,10 +26,10 @@ const Store = props => {
           };
         })
       );
+      setIsLoading(false);
     } catch (e) {
       console.error(e);
     }
-    setIsLoading(false);
   };
 
   const onClick = (name, areaCode) => {
