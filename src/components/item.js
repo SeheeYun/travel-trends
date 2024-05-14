@@ -74,14 +74,16 @@ const Item = memo(
             <a>
               <p>{title}</p>
               <div className={classes.div}></div>
-              <Image
-                className={classes.image}
-                alt={title}
-                src={firstimage}
-                layout="fill"
-                placeholder="blur"
-                blurDataURL={firstimage2}
-              />
+              {firstimage && firstimage2 && (
+                <Image
+                  className={classes.image}
+                  alt={title}
+                  src={firstimage}
+                  layout="fill"
+                  placeholder="blur"
+                  blurDataURL={firstimage2}
+                />
+              )}
             </a>
           </Link>
         </ButtonBase>

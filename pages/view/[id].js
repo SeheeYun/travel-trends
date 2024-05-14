@@ -53,7 +53,7 @@ const View = ({
         <title>{title} - Travel Trends</title>
         <meta name="description" content={overview} />
       </Head>
-      <HeadBanner image={firstimage} />
+      <HeadBanner image={firstimage || ''} />
       <Container className={classes.container}>
         <section className={classes.section}>
           <Typography component="h2" variant="h5" className={classes.bold}>
@@ -94,9 +94,10 @@ const View = ({
 };
 
 export async function getServerSideProps(context) {
-  const key = process.env.NEXT_PUBLIC_API_KEY;
-  const url =
-    'http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?';
+  // const key = process.env.NEXT_PUBLIC_API_KEY;
+  const key =
+    'iz4YzcZRuHfKiij38MkTx8ljTyJfiRsur7Tkpu8+7SmIWh5RP2HRU0syrRZERDX3O9boO3RTLNuQlkyPC/6TlA==';
+  const url = 'http://apis.data.go.kr/B551011/KorService1/detailCommon1?';
 
   try {
     const data = await axios.get(url, {
@@ -110,15 +111,10 @@ export async function getServerSideProps(context) {
         mapinfoYN: 'Y',
         overviewYN: 'Y',
         contentId: context.params.id,
+        _type: 'json',
       },
     });
-    if (data.data.response.header.resultCode === '0000') {
-      return { props: { data: data.data.response.body.items.item } };
-    } else {
-      throw new Error(
-        `공공데이터포털 에러 코드: ${data.data.response.header.resultCode}`
-      );
-    }
+    return { props: { data: data.data.response.body.items.item[0] } };
   } catch (e) {
     console.error(e);
     return {
