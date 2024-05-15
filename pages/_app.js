@@ -1,9 +1,9 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
-import Layout from '../src/components/layout';
-import Store from '../src/store/store';
+import Layout from '../src/components/Layout';
 import '../styles/globals.css';
+import ItemsContext from '../src/context/ItemsContext';
 
 function MyApp({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,12 +33,12 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <Store>
+    <ItemsContext>
       <Layout isLoading={isLoading}>
         <CssBaseline />
         <Component {...pageProps} />
       </Layout>
-    </Store>
+    </ItemsContext>
   );
 }
 

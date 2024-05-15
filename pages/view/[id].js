@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import HeadBanner from '../../src/components/headBanner';
+import HeadBanner from '../../src/components/HeadBanner';
 import parse from 'html-react-parser';
 import axios from 'axios';
 
