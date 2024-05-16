@@ -1,5 +1,8 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+
+const JEJU_NAME = '제주특별자치도';
+const JEJU_CODE = 39;
 
 const Context = createContext();
 
@@ -8,7 +11,7 @@ export function useItemsContext() {
 }
 
 const ItemsContext = props => {
-  const [province, setProvince] = useState(null);
+  const [province, setProvince] = useState(JEJU_NAME);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,6 +39,10 @@ const ItemsContext = props => {
     setProvince(name);
     getItems(areaCode);
   };
+
+  useEffect(() => {
+    getItems(JEJU_CODE);
+  }, []);
 
   const value = {
     province,

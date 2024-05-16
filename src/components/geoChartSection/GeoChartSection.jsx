@@ -8,9 +8,6 @@ import geoJson from '../../../data/getGeoJson';
 import { makeStyles } from '@material-ui/core/styles';
 import { useItemsContext } from '../../context/ItemsContext';
 
-const JEJU_NAME = geoJson.features[16].properties.name;
-const JEJU_CODE = geoJson.features[16].properties.code;
-
 const useStyles = makeStyles(theme => ({
   section: {
     backgroundColor: theme.palette.background.paper,
@@ -36,12 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 const GeoChartContainer = memo(() => {
   const classes = useStyles();
-  const { items, onClick } = useItemsContext();
-
-  useEffect(() => {
-    if (!(items.length === 0)) return;
-    onClick(JEJU_NAME, JEJU_CODE);
-  }, []);
+  const { onClick } = useItemsContext();
 
   return (
     <section className={classes.section}>

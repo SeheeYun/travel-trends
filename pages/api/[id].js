@@ -14,7 +14,7 @@ export default async (req, res) => {
         numOfRows: 9,
         MobileOS: 'ETC',
         MobileApp: 'AppTest',
-        arrange: 'P',
+        arrange: 'R',
         areaCode: req.query.id,
         _type: 'json',
       },
