@@ -1187,6 +1187,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@testing-library/user-event@npm:^14.5.2":
+  version: 14.5.2
+  resolution: "@testing-library/user-event@npm:14.5.2"
+  peerDependencies:
+    "@testing-library/dom": ">=7.21.4"
+  checksum: d76937dffcf0082fbf3bb89eb2b81a31bf5448048dd61c33928c5f10e33a58e035321d39145cefd469bb5a499c68a5b4086b22f1a44e3e7c7e817dc5f6782867
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -5700,6 +5709,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"next-router-mock@npm:^0.9.13":
+  version: 0.9.13
+  resolution: "next-router-mock@npm:0.9.13"
+  peerDependencies:
+    next: ">=10.0.0"
+    react: ">=17.0.0"
+  checksum: e6f9bae52cdd4905f628addc14abd1fe9aac7e8a3dbc50d438e82c9c0472cba850a7a624fbd94e68c00b61fd07803a2754587db2ec0fffbd3c45a896c6193bf2
+  languageName: node
+  linkType: hard
+
 "next@npm:12":
   version: 12.3.4
   resolution: "next@npm:12.3.4"
@@ -7393,6 +7412,7 @@ __metadata:
     "@material-ui/core": ^4.12.2
     "@testing-library/jest-dom": ^6.4.5
     "@testing-library/react": 12.1.5
+    "@testing-library/user-event": ^14.5.2
     axios: ^0.21.1
     d3: 6.7.0
     eslint: 7.31.0
@@ -7401,6 +7421,7 @@ __metadata:
     jest: ^29.7.0
     jest-environment-jsdom: ^29.7.0
     next: 12
+    next-router-mock: ^0.9.13
     puppeteer: ^10.2.0
     react: 17.0.2
     react-dom: 17.0.2
