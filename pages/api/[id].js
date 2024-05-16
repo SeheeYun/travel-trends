@@ -2,9 +2,7 @@ import axios from 'axios';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req, res) => {
-  // const key = process.env.NEXT_PUBLIC_API_KEY;
-  const key =
-    'iz4YzcZRuHfKiij38MkTx8ljTyJfiRsur7Tkpu8+7SmIWh5RP2HRU0syrRZERDX3O9boO3RTLNuQlkyPC/6TlA==';
+  const key = process.env.NEXT_PUBLIC_API_KEY;
   const url = 'http://apis.data.go.kr/B551011/KorService1/areaBasedList1?';
 
   try {

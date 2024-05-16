@@ -94,9 +94,7 @@ const View = ({
 };
 
 export async function getServerSideProps(context) {
-  // const key = process.env.NEXT_PUBLIC_API_KEY;
-  const key =
-    'iz4YzcZRuHfKiij38MkTx8ljTyJfiRsur7Tkpu8+7SmIWh5RP2HRU0syrRZERDX3O9boO3RTLNuQlkyPC/6TlA==';
+  const key = process.env.NEXT_PUBLIC_API_KEY;
   const url = 'http://apis.data.go.kr/B551011/KorService1/detailCommon1?';
 
   try {
