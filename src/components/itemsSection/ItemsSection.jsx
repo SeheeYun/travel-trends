@@ -3,6 +3,7 @@ import Items from './Items';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useItemsContext } from '../../context/ItemsContext';
+import { useItems } from '../../hooks/useItems';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -34,13 +35,16 @@ const useStyles = makeStyles(theme => ({
 
 const ItemsSection = memo(() => {
   const classes = useStyles();
-  const { province, items, isLoading } = useItemsContext();
+  const {
+    province: { name, code },
+  } = useItemsContext();
+  const { data: items, isLoading } = useItems(code);
 
   return (
     <section className={classes.section}>
       <Typography component="h2">
         <Typography component="span" className={classes.bold}>
-          {province}
+          {name}
         </Typography>
         의 추천 여행지
       </Typography>
