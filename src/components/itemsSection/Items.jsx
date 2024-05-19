@@ -7,7 +7,7 @@ const GRIDS = [5, 3, 4, 3, 6, 3, 4, 3, 5];
 
 const Items = memo(({ items, isLoading }) => (
   <Grid container spacing={1}>
-    {!isLoading
+    {!isLoading && items
       ? items.map((item, index) => (
           <Item key={item.contentid} item={item} grid={GRIDS[index]} />
         ))

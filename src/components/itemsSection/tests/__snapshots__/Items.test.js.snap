@@ -134,3 +134,57 @@ exports[`Items renders correctly with items 1`] = `
   </div>
 </div>
 `;
+
+exports[`Items renders correctly without items 1`] = `
+<div>
+  <div
+    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+  >
+    <div
+      class="MuiGrid-root makeStyles-root-5 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-5"
+    >
+      <div />
+    </div>
+    <div
+      class="MuiGrid-root makeStyles-root-5 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-3"
+    >
+      <div />
+    </div>
+    <div
+      class="MuiGrid-root makeStyles-root-5 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+    >
+      <div />
+    </div>
+    <div
+      class="MuiGrid-root makeStyles-root-5 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-3"
+    >
+      <div />
+    </div>
+    <div
+      class="MuiGrid-root makeStyles-root-5 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6"
+    >
+      <div />
+    </div>
+    <div
+      class="MuiGrid-root makeStyles-root-5 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-3"
+    >
+      <div />
+    </div>
+    <div
+      class="MuiGrid-root makeStyles-root-5 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+    >
+      <div />
+    </div>
+    <div
+      class="MuiGrid-root makeStyles-root-5 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-3"
+    >
+      <div />
+    </div>
+    <div
+      class="MuiGrid-root makeStyles-root-5 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-5"
+    >
+      <div />
+    </div>
+  </div>
+</div>
+`;

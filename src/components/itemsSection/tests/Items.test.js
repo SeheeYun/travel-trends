@@ -18,12 +18,17 @@ describe('Items', () => {
   ];
 
   it('renders correctly with items', () => {
-    const { container } = render(<Items items={items} />);
+    const { container } = render(<Items isLoading={false} items={items} />);
     expect(container).toMatchSnapshot();
   });
 
   it('renders correctly isLoading', () => {
-    const { container } = render(<Items isLoading={true} />);
+    const { container } = render(<Items isLoading={true} items={null} />);
+    expect(container).toMatchSnapshot();
+  });
+
+  it('renders correctly without items', () => {
+    const { container } = render(<Items isLoading={false} items={null} />);
     expect(container).toMatchSnapshot();
   });
 });
