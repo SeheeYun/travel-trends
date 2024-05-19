@@ -4,6 +4,16 @@ import { useEffect, useState } from 'react';
 import Layout from '../src/components/Layout';
 import '../styles/globals.css';
 import ItemsContext from '../src/context/ItemsContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function MyApp({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,12 +43,15 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <ItemsContext>
-      <Layout isLoading={isLoading}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </Layout>
-    </ItemsContext>
+    <QueryClientProvider client={queryClient}>
+      <ItemsContext>
+        <Layout isLoading={isLoading}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </Layout>
+      </ItemsContext>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
 
