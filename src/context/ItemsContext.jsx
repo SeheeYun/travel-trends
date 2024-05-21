@@ -1,15 +1,15 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const JEJU_NAME = '제주특별자치도';
 const JEJU_CODE = '39';
 
-const Context = createContext();
+export const ItemsContext = createContext();
 
 export function useItemsContext() {
-  return useContext(Context);
+  return useContext(ItemsContext);
 }
 
-const ItemsContext = props => {
+const ItemsContextProvider = ({ children }) => {
   const [province, setProvince] = useState({
     name: JEJU_NAME,
     code: JEJU_CODE,
@@ -24,7 +24,9 @@ const ItemsContext = props => {
     onClick,
   };
 
-  return <Context.Provider value={value}>{props.children}</Context.Provider>;
+  return (
+    <ItemsContext.Provider value={value}>{children}</ItemsContext.Provider>
+  );
 };
 
-export default ItemsContext;
+export default ItemsContextProvider;
