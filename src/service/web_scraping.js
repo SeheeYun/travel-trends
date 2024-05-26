@@ -6,7 +6,6 @@ class WebScraping {
   }
 
   async scrapeData() {
-    return [];
     this.browser = await puppeteer.launch({
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
       headless: true,
