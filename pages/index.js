@@ -1,11 +1,10 @@
 import Container from '@material-ui/core/Container';
 import Head from 'next/head';
-import HeadBanner from '../src/components/headBanner';
+import HeadBanner from '../src/components/HeadBanner';
 import webScraping from '../src/service/web_scraping';
-import BarChartContainer from '../src/container/barChartContainer';
-import GeoChartContainer from '../src/container/geoChartContainer';
-import ItemsContainer from '../src/container/itemsContainer';
-import KeywordChartContainer from '../src/container/keywordChartContainer';
+import GeoChartSection from '../src/components/geoChartSection/GeoChartSection';
+import ItemsSection from '../src/components/itemsSection/ItemsSection';
+import KeywordChartSection from '../src/components/keywordChartSection/KeywordChartSection';
 
 const HEAD_IMAGE = '/images/tip250t009837.jpeg';
 const HEAD_TITLE = '훌훌 털고 떠날 그 날을 위해, 국내 여행 트렌드 살펴보기';
@@ -20,10 +19,9 @@ const Home = ({ data }) => {
       </Head>
       <HeadBanner image={HEAD_IMAGE} title={HEAD_TITLE} />
       <Container style={{ marginTop: -80 }}>
-        <GeoChartContainer />
-        <ItemsContainer />
-        <BarChartContainer />
-        <KeywordChartContainer data={data} />
+        <GeoChartSection />
+        <ItemsSection />
+        <KeywordChartSection data={data} />
       </Container>
     </>
   );
