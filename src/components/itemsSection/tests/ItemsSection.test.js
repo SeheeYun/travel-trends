@@ -2,10 +2,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ItemsContext } from '../../../context/ItemsContext';
 import ItemsSection from '../ItemsSection';
 import { render, screen, waitFor } from '@testing-library/react';
-import { useItems } from '../../../hooks/useItems';
+import { fetchItems } from '../../../api/fetchItems';
 import Items from '../Items';
 
-jest.mock('../../../hooks/useItems');
+jest.mock('../../../api/fetchItems');
 jest.mock('../Items', () => {
   const originalModule = jest.requireActual('../Items');
   return {
@@ -56,15 +56,12 @@ describe('ItemsSection', () => {
   ];
 
   afterEach(() => {
-    useItems.mockReset();
+    fetchItems.mockReset();
     Items.mockReset();
   });
 
   it('renders correctly', async () => {
-    useItems.mockImplementation(() => ({
-      data,
-      isLoading: false,
-    }));
+    fetchItems.mockImplementation(() => Promise.resolve(data));
 
     render(
       <AllTheProviders value={{ province: { name: '서울특별시', code: '11' } }}>
@@ -72,12 +69,37 @@ describe('ItemsSection', () => {
       </AllTheProviders>
     );
 
-    await waitFor(() => {
-      expect(screen.getByText('서울특별시')).toBeInTheDocument();
-      expect(Items.mock.calls[0][0]).toStrictEqual({
-        items: data,
-        isLoading: false,
-      });
+    expect(screen.getByText('서울특별시')).toBeInTheDocument();
+    await waitFor(() =>
+      expect(Items).toHaveBeenCalledWith(
+        {
+          items: data,
+          isLoading: false,
+        },
+        {}
+      )
+    );
+  });
+
+  it('renders without items', async () => {
+    fetchItems.mockImplementation(() => {
+      throw new Error('error');
     });
+
+    render(
+      <AllTheProviders value={{ province: { name: '서울특별시', code: '11' } }}>
+        <ItemsSection />
+      </AllTheProviders>
+    );
+
+    await waitFor(() =>
+      expect(Items).toHaveBeenCalledWith(
+        {
+          items: undefined,
+          isLoading: false,
+        },
+        {}
+      )
+    );
   });
 });
