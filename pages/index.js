@@ -1,6 +1,6 @@
 import Container from '@material-ui/core/Container';
 import Head from 'next/head';
-import HeadBanner from '../src/components/HeadBanner';
+import HeadBanner from '../src/components/common/HeadBanner';
 import webScraping from '../src/service/web_scraping';
 import GeoChartSection from '../src/components/geoChartSection/GeoChartSection';
 import ItemsSection from '../src/components/itemsSection/ItemsSection';

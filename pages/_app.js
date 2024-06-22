@@ -1,7 +1,7 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
-import Layout from '../src/components/Layout';
+import Layout from '../src/components/common/Layout';
 import '../styles/globals.css';
 import ItemsContextProvider from '../src/context/ItemsContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
